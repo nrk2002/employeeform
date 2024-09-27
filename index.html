@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Employee Salary Calculator</title>
+    <style>
+        body{
+            font-family: 'Franklin Gothic Medium';
+            padding-left: 5%;
+            padding-right: 5%;
+            background-image: url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSiBSA-59iQj5V7qWIBMbbFYOo9ujHSBmzpBg&s');
+            background-attachment: fixed;
+            background-size: cover;
+            background-repeat: no-repeat;
+        }
+        h2{
+            text-decoration: underline;
+        }
+        
+        input[type=number]{
+            width: 100%;
+            padding: 12px 20px;
+            margin: 8px 0;
+            display: inline-block;
+            border: 1px solid #ccc;
+            box-sizing: border-box;
+            background-color: white;
+    }
+    button {
+        width: 100%;
+        padding: 10px;
+        background-color: #007bff;
+        color: #fff;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        font-size: 16px;
+        transition: background-color 0.3s;
+    }
+    h2,h3{
+        font-size: 35px;
+        text-decoration: underline;
+    }
+    p{
+        font-size: 25px;
+    }
+
+    </style>
+</head>
+<body>
+    <h2>EMPLOYEE INFORMATION</h2>
+    <form id="salaryForm">
+        <label for="basicSalary">Basic Salary:</label>
+        <br>
+        <input type="number" id="basicSalary" name="basicSalary" required>
+        <br><br>
+
+        <label for="daRate">DA Rate (%):</label>
+        <br>
+        <input type="number" id="daRate" name="daRate" required>
+        <br><br>
+
+        <label for="hraRate">HRA Rate (%):</label>
+        <br>
+        <input type="number" id="hraRate" name="hraRate" required>
+        <br><br>
+
+        <label for="pfRate">PF Rate (%):</label>
+        <br>
+        <input type="number" id="pfRate" name="pfRate" required>
+        <br><br>
+
+        <label for="taxRate">TAX Rate (%):</label>
+        <br>
+        <input type="number" id="taxRate" name="taxRate" required>
+        <br><br>
+
+        <button type="button" onclick="calculateSalary()">Calculate</button>
+    </form>
+    <br>
+    <hr>
+    <h3>SALARY BREAKDOWN:</h3>
+    <p >Gross Pay:<span id="grossPay"></span> </p>
+    <p >DA:<span id="da"></span> </p>
+    <p >HRA:<span id="hra"></span> </p>
+    <p >PF: <span id="pf"></span></p>
+    <p>TAX: <span id="tax"></span></p>
+    <p>Total Deduction:<span id="totaldeduction"></span> </p>
+    <p>Net Pay: <span id="netpay"></span></p>
+    <script>
+        function calculateSalary() {
+            // Get input values
+            const basicSalary = parseFloat(document.getElementById('basicSalary').value);
+            const daRate = parseFloat(document.getElementById('daRate').value) / 100;
+            const hraRate = parseFloat(document.getElementById('hraRate').value) / 100;
+            const pfRate = parseFloat(document.getElementById('pfRate').value) / 100;
+            const taxRate = parseFloat(document.getElementById('taxRate').value) / 100;
+        
+            // Calculate DA, HRA, PF, TAX
+            const da = basicSalary * daRate;
+            const hra = basicSalary * hraRate;
+            const pf = basicSalary * pfRate;
+            const grossPay = basicSalary + da + hra;
+            const tax = grossPay * taxRate;
+            const totalDeduction = pf + tax;
+            const netPay = grossPay - totalDeduction;
+        
+            // Display results
+            document.getElementById('da').innerText = da.toFixed(2);
+            document.getElementById('hra').innerText = hra.toFixed(2);
+            document.getElementById('pf').innerText = pf.toFixed(2);
+            document.getElementById('tax').innerText = tax.toFixed(2);
+            document.getElementById('grossPay').innerText = grossPay.toFixed(2);
+            document.getElementById('totaldeduction').innerText = totalDeduction.toFixed(2);
+            document.getElementById('netpay').innerText = netPay.toFixed(2);
+        }
+        
+    </script>
+</body>
+</html>
